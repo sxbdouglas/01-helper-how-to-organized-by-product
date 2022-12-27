@@ -113,13 +113,21 @@ Optimization (Best Practices) ==================================================
 
           Advantages: Join Strategy Switch, Coalesce Shuffle Partition, Optimize Skew joins
 
-    5 - 
+
+    5 - Broadcast join (when AQE is ON, spark can choose the optimal join threshold)
+
+          Use broadcast join always it is possible.
+          To set Broadcast table size use (less then 15MB is optimal):
+            Spark.conf.set(“spark.sql.autoBroadcastJoinThreshold”, 10MB)
+
+          
 
 
               
 
-
-
+Avoid Sort merge join, it causes data shuffling between nodes which is expensive
+Set spark.sql.shuffle.partitions proportional total number of cores in the cluster, with AQN spark will scale down based on run time statistics.
+Data Skew occurs when the data is unevenly distributed among the data partitions in memory.
 
 Optimization (Best Practices) ========================================================================
 
