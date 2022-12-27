@@ -37,6 +37,11 @@ Optimization (Best Practices) ==================================================
             df.where($state === "OH").show(false)
             df.where(col("state") === "OH").show(false)
 
+            #pyspark (only?)
+            df.filter(df.colD.between(200, 400))
+            df.filter(df.colC >= 3.0)
+
+
           DataFrame filter() with SQL Expression
             
             df.filter("gender == 'M'").show(false)
@@ -57,8 +62,58 @@ Optimization (Best Practices) ==================================================
 
           Drop rows with nulls
 
+            df.na.drop().show(false) #drops all rows doesn't matter the collumn with null
+            df.na.drop("any").show(false) #same behavior as the previous command.
+            df.na.drop("all").show(false) #same behavior as the previous command.
+
+          Drop Rows with NULL Values on Selected Columns
+
+            df.na.drop(Seq("population","type")).show(false)
 
 
+          Treating null Values
+
+            #Replace all integer and long columns
+              df.na.fill(0).show(false)
+
+            #Replace with specific columns
+              df.na.fill(0,Array("population")).show(false)
+
+            #Replace all string columns
+              df.na.fill("").show(false)
+
+            #Replace with specific columns with "" by unknown
+              df.na.fill("unknown",Array("city")).na.fill("",Array("type")).show(false)
+
+    2 - File Format Selection
+
+          AVRO - Row based file format (Write: Faster, Read: Slower)
+              Useful on landing zones, ingestions from sources or streamings 
+          Parquet, ORC - Columnar based file format (Write: Slower, Read: Faster)
+              Useful for frequently reading and transformations
+              Parquet has Data skipping what reads only necessary rows and columns.
+
+    3 - Caching
+
+          There are two functions available in Spark Cache and Persist. 
+          Cache saves your data in memory and if spilled the data is written to disk. 
+          Persist function gives you an option to specify where to cache your data and we can cache in memory or disk. 
+          Be careful with the amount of data being cached in memory because cached data would occupy your compute memory and you may want to make sure you have sufficient compute memory to process your data. 
+          Persisting the cache on disk can be considered since it would not occupy your compute power. 
+          It is also a good practice to unpersist the cached dataframe using the unpersist() method once the computations are completed. 
+          Do not cache a complete table into memory from storage because catalyst optimizer cannot apply query optimizations like predicate pushdown.
+
+    4 - Enable Adaptive Query Execution (available in spark 3.0, default in spark 3.2)
+
+          It changes the query plan at run time
+          Turn ON using spark.conf.set (“spark.sql.adaptive.enabled”, True)
+          When working out the query execution plan at query run time, 
+             it can switch join strategies to choose between shuffle sort join or broadcast join based on the size of the tables at run time, 
+             coalesce the number of shuffle partitions or optimize the skew joins
+
+          Advantages: Join Strategy Switch, Coalesce Shuffle Partition, Optimize Skew joins
+
+    5 - 
 
 
               
