@@ -1,6 +1,74 @@
 https://www.projectpro.io/tutorial
 
 
+
+Optimization (Best Practices) ========================================================================
+    https://surenderpa.medium.com/apache-spark-optimization-techniques-b7ced0b9c218
+
+#Checklist
+    
+    1 - filter rows and columns as early as possible, and clean up null columns to avoid issues with further operations
+                       (Spark doesn’t support column === null)
+        examples:
+
+          Null filter
+
+            df.filter("state is NULL").show(false)
+            df.filter(df("state").isNull).show(false)
+            df.filter(col("state").isNull).show(false) //Required col function import
+            df.filter("state is not NULL").show(false)
+            df.filter("NOT state is NULL").show(false)
+            df.filter(df("state").isNotNull).show(false)
+            df.filter(col("state").isNotNull).show(false) //Required col function import
+
+            df.createOrReplaceTempView("DATA")
+            spark.sql("SELECT * FROM DATA where STATE IS NULL").show(false)
+            spark.sql("SELECT * FROM DATA where STATE IS NULL AND GENDER IS NULL").show(false)
+            spark.sql("SELECT * FROM DATA where STATE IS NOT NULL").show(false)
+
+          DataFrame filter() with Column condition (works better with data frames)
+            
+            df.filter(df("state") === "OH").show(false)
+            df.filter('state === "OH").show(false)
+            df.filter($state === "OH").show(false)
+            df.filter(col("state") === "OH").show(false)
+            df.where(df("state") === "OH").show(false)
+            df.where('state === "OH").show(false)
+            df.where($state === "OH").show(false)
+            df.where(col("state") === "OH").show(false)
+
+          DataFrame filter() with SQL Expression
+            
+            df.filter("gender == 'M'").show(false)
+            df.where("gender == 'M'").show(false)
+
+          Filter with Multiple Conditions (and(&&), or(||), not(!))
+
+            df.filter(df("state") === "OH" && df("gender") === "M").show(false)
+
+          Filter on an Array Column
+
+            import org.apache.spark.sql.functions.array_contains
+            df.filter(array_contains(df("languages"),"Java")).show(false)
+          
+          Filter on Nested Struct columns
+
+            df.filter(df("name.lastname") === "Williams").show(false)
+
+          Drop rows with nulls
+
+
+
+
+
+              
+
+
+
+
+Optimization (Best Practices) ========================================================================
+
+
 Data Frame ===========================================================================================
     https://www.projectpro.io/recipes/what-are-different-ways-create-dataframe-from-raw-data-spark
 #From scratch
@@ -26,8 +94,14 @@ Data Frame =====================================================================
     val df2 = spark.read.option("header", true).csv("/apps/FirstSparkProject/src/resources/Ages.csv")
     df2.show()
     
-    df2.write.option("header", true).mode(SaveMode.Overwrite)
-      .csv("/apps/Ages2")
+    df2.write.option("header", true).mode(SaveMode.Overwrite).csv("/apps/Ages2")
+
+
+    val filePath="src/main/resources/small_zipcode.csv"
+    val df=spark.read.options(Map("inferSchema"->"true","delimiter"->",","header"->"true")).csv(filePath)
+    df.printSchema()
+    df.show(false)
+
 
 #From JSON
 
@@ -47,6 +121,54 @@ Data Frame =====================================================================
     val dfsql = spark.sql("SELECT * from zips")
     dfsql.printSchema()
     dfsql.show()
+
+#With StructType
+
+val arrayStructureData = Seq(
+    Row(Row("James","","Smith"),List("Java","Scala","C++"),"OH","M"),
+    Row(Row("Anna","Rose",""),List("Spark","Java","C++"),"NY","F"),
+    Row(Row("Julia","","Williams"),List("CSharp","VB"),"OH","F"),
+    Row(Row("Maria","Anne","Jones"),List("CSharp","VB"),"NY","M"),
+    Row(Row("Jen","Mary","Brown"),List("CSharp","VB"),"NY","M"),
+    Row(Row("Mike","Mary","Williams"),List("Python","VB"),"OH","M")
+)
+
+val arrayStructureSchema = new StructType()
+    .add("name",new StructType()
+    .add("firstname",StringType)
+    .add("middlename",StringType)
+    .add("lastname",StringType))
+    .add("languages", ArrayType(StringType))
+    .add("state", StringType)
+    .add("gender", StringType)
+
+val df = spark.createDataFrame(
+    spark.sparkContext.parallelize(arrayStructureData),arrayStructureSchema)
+df.printSchema()
+df.show()
+
+
+root
+ |-- name: struct (nullable = true)
+ |    |-- firstname: string (nullable = true)
+ |    |-- middlename: string (nullable = true)
+ |    |-- lastname: string (nullable = true)
+ |-- languages: array (nullable = true)
+ |    |-- element: string (containsNull = true)
+ |-- state: string (nullable = true)
+ |-- gender: string (nullable = true)
+
++--------------------+------------------+-----+------+
+|                name|         languages|state|gender|
++--------------------+------------------+-----+------+
+|    [James, , Smith]|[Java, Scala, C++]|   OH|     M|
+|      [Anna, Rose, ]|[Spark, Java, C++]|   NY|     F|
+| [Julia, , Williams]|      [CSharp, VB]|   OH|     F|
+|[Maria, Anne, Jones]|      [CSharp, VB]|   NY|     M|
+|  [Jen, Mary, Brown]|      [CSharp, VB]|   NY|     M|
+|[Mike, Mary, Will...|      [Python, VB]|   OH|     M|
++--------------------+------------------+-----+------+
+
 
 Data Frame ===========================================================================================
 
