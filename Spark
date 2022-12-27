@@ -120,7 +120,19 @@ Optimization (Best Practices) ==================================================
           To set Broadcast table size use (less then 15MB is optimal):
             Spark.conf.set(“spark.sql.autoBroadcastJoinThreshold”, 10MB)
 
+    6 - Optimize shuffle partition 
+
+          Default is 200, but recommended is the number of cores in the cluster.
+          For large files and small number of partition can cause Out Of Memory issues.
+          Shuffle partition is not the same concept of Parquet Files Partitioning strategy. Think smart to avoid to many small files in your file system.
+
+
+    7 - Avoid Skew(unevenly data distribution) and Spill(to disk, because not enough executor memory, since data is unevenly)
+
           
+
+
+
 
 
               
