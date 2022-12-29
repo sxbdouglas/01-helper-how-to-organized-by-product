@@ -1,0 +1,26 @@
+https://app.vagrantup.com/boxes/search
+
+https://www.vagrantup.com/
+
+vagrant -v 
+
+vagrant -h
+
+criar pasta
+
+entrar na pasta
+
+Criar um arquivo vagrant
+
+    vagrant init box
+
+Criar um arquivo vagrant com o minimo necessario
+
+    vagrant init -m box
+
+Sobreescrever um arquivo existente
+
+    vagrant init -f box
+
+o box eh o nome do box no site de apps do vagrant.
+
