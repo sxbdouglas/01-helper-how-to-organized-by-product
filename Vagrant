@@ -24,3 +24,16 @@ Sobreescrever um arquivo existente
 
 o box eh o nome do box no site de apps do vagrant.
 
+
+Criar ou rodar as maquinas virtuais configuradas no arquivo vagrant
+
+    vagrant up
+
+Acessando as maquinas por SSH
+
+    vagrant ssh nome_da_maquina
+
+Desligando as maquinas
+
+    vagrant halt
+
