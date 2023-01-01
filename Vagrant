@@ -46,6 +46,9 @@ vagrant -h
 
     vagrant halt
 
+#Destruindo as maquinas
+
+    vagrant destroy
 
 =========================
    config.vm.provision "shell", inline: <<-SHELL
