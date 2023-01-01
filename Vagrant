@@ -6,6 +6,14 @@ vagrant -v
 
 vagrant -h
 
+#listar maquinas vagrant baixadas na maquina local
+
+    vagrant box list
+
+#Verifica status das maquinas
+
+    vagrant status
+
 #criar pasta
 
 #entrar na pasta
@@ -31,6 +39,7 @@ vagrant -h
 
 #Acessando as maquinas por SSH
 
+    vagrant ssh #dentro do diretorio com uma maquina so vai direto...
     vagrant ssh nome_da_maquina
 
 #Desligando as maquinas
