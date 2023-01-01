@@ -6,34 +6,45 @@ vagrant -v
 
 vagrant -h
 
-criar pasta
+#criar pasta
 
-entrar na pasta
+#entrar na pasta
 
-Criar um arquivo vagrant
+#Criar um arquivo vagrant
 
     vagrant init box
 
-Criar um arquivo vagrant com o minimo necessario
+#Criar um arquivo vagrant com o minimo necessario
 
     vagrant init -m box
 
-Sobreescrever um arquivo existente
+#Sobreescrever um arquivo existente
 
     vagrant init -f box
 
-o box eh o nome do box no site de apps do vagrant.
+    #o box eh o nome do box no site de apps do vagrant.
 
 
-Criar ou rodar as maquinas virtuais configuradas no arquivo vagrant
+#Criar ou rodar as maquinas virtuais configuradas no arquivo vagrant
 
     vagrant up
 
-Acessando as maquinas por SSH
+#Acessando as maquinas por SSH
 
     vagrant ssh nome_da_maquina
 
-Desligando as maquinas
+#Desligando as maquinas
 
     vagrant halt
 
+
+=========================
+   config.vm.provision "shell", inline: <<-SHELL
+     apt-get update
+     apt-get install -y apache2
+   SHELL
+
+   or
+
+   config.vm.provision "shell", inline: "sudo apt update && sudo pip install fastapi"
+=========================
