@@ -6,6 +6,13 @@ https://www.databricks.com/blog/2019/03/26/introducing-databricks-aws-iam-creden
 https://www.databricks.com/blog/2019/07/17/how-databricks-iam-credential-passthrough-solves-common-data-authorization-problems.html
 
 
+Databricks AWS Glue
+Need to config the cluster-> go to Cluster->Spark->Config and add:
+  spark.databricks.hive.metastore.glueCatalog.enabled true
+Environment Variable 
+   PYSPARK_PHTHON=/databricks/python3/bin/python3
+
+
 AWS References for databricks notebook example
     Accessing-Data-S3-Buckets
     https://docs.databricks.com/external-data/amazon-s3.html
