@@ -4,3 +4,13 @@ https://docs.databricks.com/aws/iam/instance-profile-tutorial.html
 Passthrough AWS Databricks
 https://www.databricks.com/blog/2019/03/26/introducing-databricks-aws-iam-credential-passthrough.html
 https://www.databricks.com/blog/2019/07/17/how-databricks-iam-credential-passthrough-solves-common-data-authorization-problems.html
+
+
+AWS References for databricks notebook example
+    Accessing-Data-S3-Buckets
+    https://docs.databricks.com/external-data/amazon-s3.html
+    https://docs.databricks.com/archive/admin-guide/assume-role.html
+    https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html
+    https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html
+    https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html
+
