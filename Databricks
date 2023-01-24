@@ -21,8 +21,12 @@ AWS References for databricks notebook example
     https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html
     https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html
 
+AWS create unity catalog
+https://docs.databricks.com/data-governance/unity-catalog/create-metastore.html
+
 Benchmark for databricks and snowflake
   TPC-DS 100TB-DERIVED POWER TEST
 
 Secret Scope
 https://www.youtube.com/watch?v=9VzBS4OiP_A
+
