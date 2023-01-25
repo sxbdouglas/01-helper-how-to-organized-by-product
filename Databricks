@@ -1,3 +1,12 @@
+
+Configure AWS account on Databricks.
+I saw only in ther training :
+    https://customer-academy.databricks.com/learn/course/73/play/7549:1252/aws-databricks-workspace-deployment;lp=66
+Achei na documentacao
+    https://docs.databricks.com/archive/admin-guide/aws-accounts.html
+
+
+
 How-to create a instance profile for aws
 https://docs.databricks.com/aws/iam/instance-profile-tutorial.html
 
@@ -29,4 +38,7 @@ Benchmark for databricks and snowflake
 
 Secret Scope
 https://www.youtube.com/watch?v=9VzBS4OiP_A
+
+Setup Databricks Azure Account
+https://learn.microsoft.com/en-us/azure/databricks/getting-started/
 
