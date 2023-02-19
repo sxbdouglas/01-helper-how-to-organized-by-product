@@ -2,22 +2,22 @@
 Symbolic link ========================================
     https://linuxize.com/post/how-to-create-symbolic-links-in-linux-using-the-ln-command/
 
-#create symbolic link
-    ln -s [OPTIONS] FILE LINK
+    #create symbolic link
+        ln -s [OPTIONS] FILE LINK
 
-    ln -s source_file symbolic_link
+        ln -s source_file symbolic_link
 
-    ln -s my_file.txt my_link.txt
-        #overwrite
-            ln -sf my_file.txt my_link.txt
+        ln -s my_file.txt my_link.txt
+            #overwrite
+                ln -sf my_file.txt my_link.txt
 
-#for directory
-    ln -s /mnt/my_drive/movies ~/my_movies
+    #for directory
+        ln -s /mnt/my_drive/movies ~/my_movies
 
-#remove symbolic link
-    unlink symlink_to_remove
+    #remove symbolic link
+        unlink symlink_to_remove
     
-    rm symlink_to_remove
+        rm symlink_to_remove
 
 Symbolic link ========================================
 

@@ -4,7 +4,13 @@ I saw only in ther training :
     https://customer-academy.databricks.com/learn/course/73/play/7549:1252/aws-databricks-workspace-deployment;lp=66
 Achei na documentacao
     https://docs.databricks.com/archive/admin-guide/aws-accounts.html
+New versions
+    https://docs.databricks.com/administration-guide/account-settings-e2/index.html
 
+
+
+Getting Started as Databricks User
+https://docs.databricks.com/getting-started/quick-start.html
 
 
 How-to create a instance profile for aws
@@ -13,6 +19,12 @@ https://docs.databricks.com/aws/iam/instance-profile-tutorial.html
 Passthrough AWS Databricks
 https://www.databricks.com/blog/2019/03/26/introducing-databricks-aws-iam-credential-passthrough.html
 https://www.databricks.com/blog/2019/07/17/how-databricks-iam-credential-passthrough-solves-common-data-authorization-problems.html
+
+
+
+Configure Databricks logs
+https://docs.databricks.com/administration-guide/account-settings/audit-logs.html
+
 
 
 Databricks AWS Glue
